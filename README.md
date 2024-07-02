@@ -1,2 +1,0 @@
-# CartControl
-Controle de compras 

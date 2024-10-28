@@ -2,13 +2,15 @@ document.addEventListener('DOMContentLoaded', loadProductsFromLocalStorage);
 document.getElementById('product-form').addEventListener('submit', addProduct);
 document.getElementById('product-list').addEventListener('click', removeProduct);
 
+function parsePrice(value) {
+    return parseFloat(value.replace(',', '.'));
+}
 
-//adicionar um produto à lista
 function addProduct(e) {
     e.preventDefault();
 
     const productName = document.getElementById('product-name').value;
-    const productPrice = parseFloat(document.getElementById('product-price').value);
+    const productPrice = parsePrice(document.getElementById('product-price').value); // Convertendo a vírgula para ponto
 
     if (!isNaN(productPrice) && productPrice > 0 && productName.trim() !== "") {
         const productList = document.getElementById('product-list');
@@ -31,7 +33,6 @@ function addProduct(e) {
     }
 }
 
-//  remover um produto da lista
 function removeProduct(e) {
     if (e.target.classList.contains('delete')) {
         const listItem = e.target.parentElement;
@@ -43,7 +44,6 @@ function removeProduct(e) {
     }
 }
 
-//  atualizar o total dos preços dos produtos
 function updateTotal(price) {
     const totalPriceElement = document.getElementById('total-price');
     const currentTotal = parseFloat(totalPriceElement.textContent);
@@ -80,8 +80,8 @@ function loadProductsFromLocalStorage() {
 
     document.getElementById('total-price').textContent = total.toFixed(2);
 }
-    
-//atualizar a lista de oplçoes do autocomplete
+
+// atualizar a lista de opções do autocomplete
 function updateAutocomplete(productName) {
     const datalist = document.getElementById('products');
     const optionExists = Array.from(datalist.options).some(option => option.value === productName);
@@ -93,7 +93,7 @@ function updateAutocomplete(productName) {
     }
 }
 
-//remover um produto do localStorage
+// remover um produto do localStorage
 function removeProductFromLocalStorage(productText) {
     let products = JSON.parse(localStorage.getItem('products')) || [];
     const productName = productText.split(':')[0].trim();

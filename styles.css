@@ -12,6 +12,7 @@
     --color-green2: rgb(51, 149, 26);
     --color-red: rgb(184, 40, 35);
     --color-red2: rgb(146, 22, 17);
+    --color-blue: rgb(18, 37, 209);
     
 }
 
@@ -63,4 +64,11 @@ button{
     justify-content: space-between;
     padding: 10px;
     border-bottom: 1px solid #eee;
+}
+
+#logout-btn{
+    background-color: var(--color-blue);
+    
+    border: none;
+    cursor: pointer;
 }

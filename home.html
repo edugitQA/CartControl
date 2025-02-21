@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Compras</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Compras</h1>
+        <p id="boas-vindas"></p>
+        <button id="logout-btn">🚪 Sair</button>
+
+        <form id="item-form">
+            <input type="text" id="nome" placeholder="Nome do item" required>
+            <input type="number" id="valor" placeholder="Valor unitário (R$)" step="0.01" required>
+            <input type="number" id="quantidade" placeholder="Quantidade" value="1" min="1" required>
+            <button type="submit">Adicionar Item</button>
+        </form>
+
+        <h2>Carrinho 🛒</h2>
+        <ul id="lista-itens"></ul>
+        <h3>Total: R$ <span id="total-compra">0.00</span></h3>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

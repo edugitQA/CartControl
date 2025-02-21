@@ -1,9 +1,17 @@
 const form = document.getElementById('item-form');
 const listaItens = document.getElementById('lista-itens');
 const totalCompra = document.getElementById('total-compra');
+const boasVindas = document.getElementById('boas-vindas')
+const logoutBtn = document.getElementById('logout-btn')
 
+const usuarioLogado = localStorage.getItem('usuarioLogado');
+if (!usuarioLogado) window.location.href = 'index.html'; 
 
-let itens = JSON.parse(localStorage.getItem('itens')) || [];
+boasVindas.textContent = `👋 Olá, ${usuarioLogado}!`;
+
+// Recupera dados do localStorage ao carregar a página
+let usuarios = JSON.parse(localStorage.getItem('usuarios')) || {};
+let itens = usuarios[usuarioLogado]?.itens || [];
 
 function atualizarCarrinho() {
     listaItens.innerHTML = '';
@@ -23,12 +31,15 @@ function atualizarCarrinho() {
         listaItens.appendChild(li);
     });
     
-
-
-
     totalCompra.textContent = total.toFixed(2);
-    localStorage.setItem('itens', JSON.stringify(itens));
+    salvarDados();
 }
+
+function salvarDados() {
+    usuarios[usuarioLogado].itens = itens;
+    localStorage.setItem('usuarios', JSON.stringify(usuarios));
+}
+
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -46,5 +57,11 @@ function removerItem(index) {
     atualizarCarrinho();
 }
 
+logoutBtn.addEventListener('click', () => {
+    localStorage.removeItem('usuarioLogado');
+    window.location.href = 'index.html';
+});
 
+
+// Inicializa carrinho ao carregar a página
 atualizarCarrinho();

@@ -1,8 +1,12 @@
 const form = document.getElementById('item-form');
 const listaItens = document.getElementById('lista-itens');
 const totalCompra = document.getElementById('total-compra');
-const boasVindas = document.getElementById('boas-vindas')
-const logoutBtn = document.getElementById('logout-btn')
+const boasVindas = document.getElementById('boas-vindas');
+const logoutBtn = document.getElementById('logout-btn');
+
+const inputNome = document.getElementById('nome')
+
+
 
 const usuarioLogado = localStorage.getItem('usuarioLogado');
 if (!usuarioLogado) window.location.href = 'index.html'; 
@@ -12,6 +16,16 @@ boasVindas.textContent = `👋 Olá, ${usuarioLogado}!`;
 // Recupera dados do localStorage ao carregar a página
 let usuarios = JSON.parse(localStorage.getItem('usuarios')) || {};
 let itens = usuarios[usuarioLogado]?.itens || [];
+
+function recuperarNomeSalvo(){
+    const nomeSalvo = localStorage.getItem('nomeItem');
+    if(nomeSalvo) inputNome.value = nomeSalvo;
+}
+
+inputNome.addEventListener('input', () => {
+    localStorage.setItem('nomeItem', inputNome.value);
+});
+
 
 function atualizarCarrinho() {
     listaItens.innerHTML = '';
@@ -50,6 +64,7 @@ form.addEventListener('submit', (e) => {
     itens.push({ nome, valor, quantidade });
     atualizarCarrinho();
     form.reset();
+    localStorage.removeItem('nomeItem');
 });
 
 function removerItem(index) {
@@ -65,3 +80,4 @@ logoutBtn.addEventListener('click', () => {
 
 // Inicializa carrinho ao carregar a página
 atualizarCarrinho();
+recuperarNomeSalvo();

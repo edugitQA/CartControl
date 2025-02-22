@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📜 Histórico de Compras</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>📜 Histórico de Compras</h1>
+        <button onclick="window.location.href='home.html'">🔙 Voltar</button><br>
+        <button id="excluir-selecionados">🗑️ Excluir Selecionados</button>
+        
+        <ul id="lista-historico"></ul>
+    </div>
+
+    <script>
+        const listaHistorico = document.getElementById('lista-historico');
+        const excluirSelecionadosBtn = document.getElementById('excluir-selecionados');
+        let historico = JSON.parse(localStorage.getItem('historicoCompras')) || [];
+
+        function carregarHistorico() {
+            listaHistorico.innerHTML = '';
+            if (historico.length === 0) {
+                listaHistorico.innerHTML = '<p>⚠️ Nenhuma compra finalizada até agora.</p>';
+                excluirSelecionadosBtn.style.display = 'none';
+                return;
+            }
+
+            historico.forEach((compra, index) => {
+                const itensDetalhes = compra.itens
+                    .map(item => `${item.nome} - R$ ${item.valor.toFixed(2)} x ${item.quantidade}`)
+                    .join('<br>');
+
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <input type="checkbox" class="checkbox-compra" data-index="${index}">
+                    <strong>📝 ${compra.nome}</strong> <br>
+                    🕒 ${compra.data} <br>
+                    💰 Total: R$ ${compra.total} <br>
+                    🛍️ Itens:<br> ${itensDetalhes}
+                    <hr>
+                `;
+                listaHistorico.appendChild(li);
+            });
+        }
+
+        excluirSelecionadosBtn.addEventListener('click', () => {
+            const checkboxes = document.querySelectorAll('.checkbox-compra:checked');
+            if (checkboxes.length === 0) {
+                alert('⚠️ Selecione pelo menos uma compra para excluir.');
+                return;
+            }
+
+            // Filtra o histórico removendo os selecionados
+            const indicesSelecionados = Array.from(checkboxes).map(cb => parseInt(cb.dataset.index));
+            historico = historico.filter((_, index) => !indicesSelecionados.includes(index));
+
+            localStorage.setItem('historicoCompras', JSON.stringify(historico));
+            carregarHistorico();
+            alert('🗑️ Compras selecionadas excluídas com sucesso!');
+        });
+
+        carregarHistorico();
+    </script>
+</body>
+</html>

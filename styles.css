@@ -72,3 +72,89 @@ button{
     border: none;
     cursor: pointer;
 }
+
+/* Estilização do container de finalização */
+.finalizar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+/* Estilo para o input "Nome da lista" */
+#nome-lista {
+    padding: 6px;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Estilização geral para os botões */
+#finalizar-compra, .btn-historico {
+    width: auto;
+    padding: 3px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Cor para o botão "Finalizar Compra" */
+#finalizar-compra {
+    background-color: #28a745;
+}
+
+#finalizar-compra:hover {
+    background-color: #218838;
+}
+
+/* Cor para o botão "Ver Histórico" */
+.btn-historico {
+    background-color: #dc3545;
+}
+
+.btn-historico:hover {
+    background-color: #c82333;
+}
+
+/* Ajuste para responsividade */
+@media (max-width: 500px) {
+    .finalizar-container {
+        flex-direction: column;
+    }
+
+    #nome-lista {
+        width: 100%;
+    }
+}
+
+/* Estilização do botão de exclusão */
+#excluir-selecionados {
+    width: auto;
+    padding: 4px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    background-color: #ff6347;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#excluir-selecionados:hover {
+    background-color: #ff3b20;
+}
+
+/* Ajuste nos checkboxes */
+.checkbox-compra {
+    margin-right: 10px;
+    transform: scale(1.3);
+    cursor: pointer;
+}
+

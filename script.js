@@ -3,17 +3,17 @@ const listaItens = document.getElementById('lista-itens');
 const totalCompra = document.getElementById('total-compra');
 const boasVindas = document.getElementById('boas-vindas');
 const logoutBtn = document.getElementById('logout-btn');
+const finalizarCompraBtn = document.getElementById('finalizar-compra');
+const nomeListaInput = document.getElementById('nome-lista');
+
 
 const inputNome = document.getElementById('nome')
-
-
 
 const usuarioLogado = localStorage.getItem('usuarioLogado');
 if (!usuarioLogado) window.location.href = 'index.html'; 
 
 boasVindas.textContent = `👋 Olá, ${usuarioLogado}!`;
 
-// Recupera dados do localStorage ao carregar a página
 let usuarios = JSON.parse(localStorage.getItem('usuarios')) || {};
 let itens = usuarios[usuarioLogado]?.itens || [];
 
@@ -77,6 +77,36 @@ logoutBtn.addEventListener('click', () => {
     window.location.href = 'index.html';
 });
 
+let historico = JSON.parse(localStorage.getItem('historicoCompras')) || [];
+
+finalizarCompraBtn.addEventListener('click', () => {
+    const nomeLista = nomeListaInput.value.trim();
+    if (!nomeLista) {
+        alert('📛 Por favor, informe um nome para a lista.');
+        return;
+    }
+    if (itens.length === 0) {
+        alert('🛒 Sua lista está vazia. Adicione itens antes de finalizar.');
+        return;
+    }
+
+    const total = itens.reduce((acc, item) => acc + item.valor * item.quantidade, 0);
+    const novaCompra = {
+        nome: nomeLista,
+        data: new Date().toLocaleString(),
+        itens: [...itens],
+        total: total.toFixed(2)
+    };
+
+    historico.push(novaCompra);
+    localStorage.setItem('historicoCompras', JSON.stringify(historico));
+
+    // Limpa o carrinho após salvar
+    itens = [];
+    atualizarCarrinho();
+    nomeListaInput.value = '';
+    alert('🎉 Compra finalizada e salva no histórico!');
+});
 
 // Inicializa carrinho ao carregar a página
 atualizarCarrinho();

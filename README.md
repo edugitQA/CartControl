@@ -29,7 +29,7 @@
 
 # Como Usar
 
-1. **logar no sistema**: Utilize a interface para realizar o seu login se não possuir basta se cadastrar rapidamente com apenas nome e senha;
+1. **logar no sistema**:realize o seu login se não possuir basta se cadastrar rapidamente com apenas nome e senha;
 2. **Adicionar itens no carrinho**: Utilize a interface para inserir os produtos e suas respectivas quantidades e valor
 3. **VIsualizar o total**: O valor total da compra será atualizado em tempo real à medida que os itens são adicionados;
 4. **Salvar a compra**: Após finalizar o registro do itens, salve para futuras consultass e comparaçoes de preços
